@@ -1,0 +1,66 @@
+﻿@model Prueba.Domain.Model.Kardex
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Kardex</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Producto.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadEntrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadEntrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadSalida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CantidadSalida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Costo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdDocumento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdDocumento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Documento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Documento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdKardex }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

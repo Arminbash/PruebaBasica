@@ -1,0 +1,71 @@
+@model MueblesNicaragua.Models.ViewMueble.BaseModelo
+
+@{ 
+    var CantidadPaginas = (int)Math.Ceiling((double)Model.TotalDeRegistros / Model.RegistroPorPagina);
+}
+
+@{ 
+    int inicial = 1;
+    var radio = 3;
+    var cantidadMaximaDePaginas = radio * 2 + 1;
+    int final = (CantidadPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : CantidadPaginas;
+
+    if (Model.PaginaActual > radio + 1)
+    {
+        inicial = Model.PaginaActual - radio;
+        if(CantidadPaginas  > Model.PaginaActual + radio)
+        {
+            final = Model.PaginaActual + radio;
+        }
+        else
+        {
+            final = CantidadPaginas;
+        }
+    }
+}
+
+    <ul class="pagination">
+        <li>
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    onclick="ver('@Url.Action("tabla","muebles", new { pagina = 1})')">
+                Primero
+            </button>
+        </li>
+        @for (int i = inicial; i <= final; i++)
+        {
+            if (i == Model.PaginaActual)
+            {
+                <li>
+                    <button type="button"
+                            class="btn btn-primary active"
+                            onclick="ver('@Url.Action("tabla","muebles", new { pagina = i})')">
+                        @i.ToString()
+                    </button>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <button type="button"
+                            class="btn btn-primary"
+                            onclick="ver('@Url.Action("tabla","muebles", new { pagina = i})')">
+                        @i.ToString()
+                    </button>
+                </li>
+            }
+        }
+        <li>
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    onclick="ver('@Url.Action("tabla","muebles", new { pagina = CantidadPaginas})')">
+                Ultimo
+            </button>
+        </li>
+    </ul>
+
+<script>
+    function ver(dir) {
+        load(dir);
+    }
+</script>

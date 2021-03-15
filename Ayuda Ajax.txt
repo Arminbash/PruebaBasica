@@ -1,0 +1,137 @@
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModal-label">Nuevo mueble</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>mueble</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.casaId, "casaId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("casaId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.casaId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.tipomuebleId, "tipomuebleId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("tipomuebleId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.tipomuebleId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.especificacione, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.especificacione, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.especificacione, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.precio, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button data-dismiss="modal" class="btn btn-primary" id="btnOk">Ok</button>
+                                            <button class="btn btn-default" data-dismiss="modal" id="btnCancelar">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>*@
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+
+
+<script>
+    $("#btnOk").click(function () {
+        var casaId = $("#casaId").val();
+        var tipoMueble = $("#tipomuebleId").val();
+        var espedificacion = $("#especificacione").val();
+        var precio = $("#precio").val();
+        var image = $("#image").val();
+
+        var data1 = {
+            mueble: {
+                casaId: casaId,
+                tipomuebleId: tipoMueble,
+                especificacione: espedificacion,
+                precio: precio,
+                image: image
+            }
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create2","muebles")',
+            data: JSON.stringify(data1),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#myModal").hide();
+                load('@Url.Action("tabla","muebles")');
+            },
+            error: function  (jqXHR, TextStatus, errorThrown)  {
+                   error(jqXHR,TextStatus,errorThrown)
+            }
+        }).done(function (result) {
+            console.log(result);
+        });
+    });
+
+        function error(jqXHR, TextStatus, errorThrown) {
+        if (jqXHR === 0) {
+            alert('Not connect: verify Network');
+        } else if (jqXHR.status === 404) {
+            alert('Requested page not found [404]');
+        } else if (jqXHR.status === 500) {
+            alert('Internal server error [500]');
+        } else if (TextStatus === 'pasererror') {
+            alert('Request Json parse failed');
+        } else if (TextStatus === 'timeout') {
+            alert('Time out error');
+        } else if (TextStatus === 'abort') {
+            alert('Ajax request aborted');
+        } else {
+            alert('Uncaught Error : ' + jqXHR.responseText);
+        }
+    }
+</script>

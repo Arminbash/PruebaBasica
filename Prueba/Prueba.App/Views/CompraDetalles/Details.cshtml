@@ -1,0 +1,58 @@
+﻿@model Prueba.Domain.Model.CompraDetalle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CompraDetalle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Compra.Factura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Compra.Factura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.producto.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.producto.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCompraDetalle }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
